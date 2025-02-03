@@ -129,11 +129,9 @@ class chat:
                     profile["name"] = name
                 else:
                     Mbox(title, "Username must only contain letters.", ICON_EXCLAIM)
-                    #chat.setup()
                     return setupStatus
             else:
                 Mbox(title, "Username cannot be empty.", ICON_STOP)
-                #chat.setup()
                 return setupStatus
             print(f"Username can be {colors}.")
             color = input("Pick a color: ")
@@ -141,7 +139,6 @@ class chat:
                 profile["color"] = hue[color][1]
             else:
                 Mbox(title, "Please choose from one of the listed colors.", ICON_STOP)
-                #chat.setup()
                 return setupStatus
             newProfile = hue[color][0] + name + reset
             profiles.append(profile)
@@ -254,7 +251,7 @@ class cmd:
     exProfileArg = 'profilename'
 
     commands = [
-        # cmds     description                            executes
+        # cmds     description                            function
         {"help": ['Displays a list of helpful commands.', glossary]},
         {"switch": [f'Switches current profile to the\n  selected alternative.\n  eg. "$switch {exProfileArg}"', chat.switchProfile]},
         {"create": ['Propts user to create a new profile.', chat.setup]},
@@ -300,15 +297,7 @@ class cmd:
             return cmdStatus
         except Exception as e:
             sys.exit(e)
-'''
-class database:
-    try:
-        fb = firebase.FirebaseApplication(db, None) # apikey: 'AIzaSyB-tCk1TO8u94PYjVhBqACr5sYnT_nl8Pk'
-        key = str(json.loads(json.dumps(fb.post('/messages', None)))["name"]) # database.ref().child('messages').push().key;
-        num = len(json.loads(json.dumps(fb.get('/messages', None)))) # number of messageKeys in database
-    except Exception as e:
-        Mbox(title, e, ICON_EXCLAIM) # change later for GUi
-'''
+
 ''' much too resource-intensive of a task
 stats = f"""
 Server Version: {ver}
