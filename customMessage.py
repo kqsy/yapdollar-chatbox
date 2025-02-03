@@ -342,7 +342,7 @@ def initConnection(uri):
     except websocket._exceptions.WebSocketConnectionClosedException as WSCCE:
         sys.exit(WSCCE)
     except Exception as e:
-        sys.exit(e) # .with_traceback()
+        sys.exit(e)
 
 def sendMessage(text):
     userId = activeProfile['name']
