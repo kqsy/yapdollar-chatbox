@@ -17,6 +17,7 @@ try:
 except Exception as e:
     sys.exit(e)
 
+# global variables & constants
 ver = 5
 internalHost = 's-usc1f-nss-2546.firebaseio.com' # update to 2547
 configs = re.findall(r"\"[\S.]+\"", js)
@@ -90,7 +91,6 @@ def Title(status=""):
     return ctypes.windll.kernel32.SetConsoleTitleW(title + text)
 
 class chat:
-    #global profiles, activeProfile
     def saveProfile():
         profileCfg = os.path.exists(profileCfgLocation)
         if (profileCfg):
@@ -129,11 +129,9 @@ class chat:
                     profile["name"] = name
                 else:
                     Mbox(title, "Username must only contain letters.", ICON_EXCLAIM)
-                    #chat.setup()
                     return setupStatus
             else:
                 Mbox(title, "Username cannot be empty.", ICON_STOP)
-                #chat.setup()
                 return setupStatus
             print(f"Username can be {colors}.")
             color = input("Pick a color: ")
@@ -141,7 +139,6 @@ class chat:
                 profile["color"] = hue[color][1]
             else:
                 Mbox(title, "Please choose from one of the listed colors.", ICON_STOP)
-                #chat.setup()
                 return setupStatus
             newProfile = hue[color][0] + name + reset
             profiles.append(profile)
@@ -166,7 +163,6 @@ class chat:
             if (profile is not None):
                 if (profileExists):
                     for sets in profiles:
-                        #print(sets["name"])
                         if (profile == sets["name"]):
                             profileFound = True
                             for index, key in enumerate(profiles):
@@ -207,6 +203,7 @@ class ext: # dedicated to pywebview functions
         window.on_top = False
         window.evaluate_js(javascript) # deletes textbox element
         window.load_css(css) # custom dark theme
+        
         #jsi = window.evaluate_js("document.getElementById('message-input').remove(); var sendButton = document.getElementById('send-button'); sendButton.innerHTML = 'Send Message'; sendButton.addEventListener('click', function () {'Sent pressed';});")
         #print(jsi)
         #window.evaluate_js("enUsr = document.createElement('div'); enUsr.id = 'user-input'; enUsr.style.border = '1px solid #faa1ff'; enUsr.innerHTML += document.getElementById('message-input').outerHTML + document.getElementById('send-button').outerHTML; document.getElementById('chatbox-container').appendChild(enUsr);")
@@ -300,6 +297,7 @@ class cmd:
             return cmdStatus
         except Exception as e:
             sys.exit(e)
+
 '''
 class database:
     try:
@@ -342,7 +340,7 @@ def initConnection(uri):
     except websocket._exceptions.WebSocketConnectionClosedException as WSCCE:
         sys.exit(WSCCE)
     except Exception as e:
-        sys.exit(e) # .with_traceback()
+        sys.exit(e)
 
 def sendMessage(text):
     userId = activeProfile['name']
@@ -391,9 +389,7 @@ def sendMessage(text):
         if (status["s"] == "ok"):
             messageStatus = "Message sent"
         else:
-            data = status["d"]
-            messageStatus = f"{data}"
-        #Mbox(title, messageStatus, ICON_INFO)
+            messageStatus = status["d"] # data
 
         ws.close(ws.status)
 
@@ -403,7 +399,7 @@ def sendMessage(text):
     except websocket._exceptions.WebSocketConnectionClosedException as WSCCE:
         sys.exit(WSCCE)
     except Exception as e:
-        sys.exit(e) # .with_traceback()
+        sys.exit(e)
 
 def client():
     try:
@@ -489,6 +485,6 @@ def main():
     except AttributeError as AE:
         sys.exit(AE)
     except Exception as e:
-        sys.exit(e) # .__class__.__name__
+        sys.exit(e)
 
 main()
