@@ -1,4 +1,4 @@
-#Yapdollar Custom Chatbox
+# Yapdollar Custom Chatbox
 
 <p align="center">
     <img src="https://teamkuso.xyz/img/yapdollar.png" alt="yapdollar jumpscare">
