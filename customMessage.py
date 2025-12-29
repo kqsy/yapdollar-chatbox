@@ -298,25 +298,6 @@ class cmd:
         except Exception as e:
             sys.exit(e)
 
-'''
-class database:
-    try:
-        fb = firebase.FirebaseApplication(db, None) # apikey: 'AIzaSyB-tCk1TO8u94PYjVhBqACr5sYnT_nl8Pk'
-        key = str(json.loads(json.dumps(fb.post('/messages', None)))["name"]) # database.ref().child('messages').push().key;
-        num = len(json.loads(json.dumps(fb.get('/messages', None)))) # number of messageKeys in database
-    except Exception as e:
-        Mbox(title, e, ICON_EXCLAIM) # change later for GUi
-'''
-''' much too resource-intensive of a task
-stats = f"""
-Server Version: {ver}
-Messages sent: {database.num:,}
-Project: {ns}
-Current Color Index: {len(hue)}
-Development: {credit}
-""" # calling database function causes slight lag in performance
-'''
-
 def initConnection(uri):
     try:
         Title("Connecting to wss")
@@ -326,7 +307,7 @@ def initConnection(uri):
 
         if (ws.connected):
             response = ws.recv()
-            endpoint = str(json.loads(response.split('\n')[0])['d']['d']['h']) # host key: {'t': 'c', 'd': {'t': 'h', 'd': {'ts': 1737102360753, 'v': '5', 'h': 's-usc1f-nss-2547.firebaseio.com', 's': 'kVDb2zofN28HHquzPaqfxMYl2x2giYAX'}}}
+            endpoint = str(json.loads(response.split('\n')[0])['d']['d']['h'])
             DNS = uri.split('/', 3)[2] # parses wss var for domain
             if (endpoint == DNS):
                 Title("Connection established")
@@ -349,7 +330,7 @@ def sendMessage(text):
     try:
         Title("Connecting to db")
         database = firebase.FirebaseApplication(db, None) # apikey: 'AIzaSyB-tCk1TO8u94PYjVhBqACr5sYnT_nl8Pk'
-        newMessageKey = str(json.loads(json.dumps(database.post('/messages', None)))["name"]) # database.ref().child('messages').push().key;
+        newMessageKey = str(json.loads(json.dumps(database.post('/messages', None)))["name"]) # js: database.ref().child('messages').push().key;
     except Exception as e:
         Mbox(title, e, ICON_EXCLAIM)
         sys.exit(e)
@@ -408,7 +389,6 @@ def client():
 
         os.system('chcp 65001 >nul') # io utf-8 encoding
         os.system('mode 54,40 >nul') # (width, height*2)
-        #os.system('mode 41,40 >nul')
         Title()
 
         if (not profileExists):
